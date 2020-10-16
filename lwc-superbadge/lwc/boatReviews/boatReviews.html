@@ -1,0 +1,49 @@
+<template>
+    <div if:false={reviewsToShow} class="slds-align_absolute-center slds-scrollable_y">
+        No reviews available
+    </div>
+    <div if:true={reviewsToShow} class="slds-feed reviews-style slds-is-relative slds-scrollable_y">
+        <lightning-spinner if:true={isLoading} variant="brand" alternative-text="Loading" size="small">
+        </lightning-spinner>
+        <ul class="slds-feed__list">
+            <template for:each={boatReviews} for:item="review">
+
+                <li class="slds-feed__item" key={review.Id}>
+                    <article class="slds-post">
+                        <header class="slds-post__header slds-media">
+                            <div class="slds-media__figure">
+                                <lightning-avatar variant="circle" src={review.CreatedBy.SmallPhotoUrl}>
+                                </lightning-avatar>
+                            </div>
+                            <div class="slds-media__body">
+                                <div class="slds-grid slds-grid_align-spread slds-has-flexi-truncate">
+                                    <p>
+                                        <a title={review.CreatedBy.Name} data-record-id={review.CreatedBy.Id}
+                                            onclick={navigateToRecord}>
+                                            {review.CreatedBy.Name}
+                                        </a>
+                                        <span>
+                                            <lightning-formatted-text value={review.CreatedBy.CompanyName}>
+                                            </lightning-formatted-text>
+                                        </span>
+                                    </p>
+                                </div>
+                                <p class="slds-text-body_small">
+                                    <lightning-formatted-date-time value={review.CreatedDate}>
+                                    </lightning-formatted-date-time>
+                                </p>
+                            </div>
+                        </header>
+                        <div class="slds-text-longform">
+                            <p class="slds-text-title_caps">
+                                <lightning-formatted-text value={review.Name}></lightning-formatted-text>
+                            </p>
+                            <lightning-formatted-rich-text value={review.Comment__c}></lightning-formatted-rich-text>
+                        </div>
+                        <c-five-star-rating read-only="true" value={review.Rating__c}></c-five-star-rating>
+                    </article>
+                </li>
+            </template>
+        </ul>
+    </div>
+</template>
