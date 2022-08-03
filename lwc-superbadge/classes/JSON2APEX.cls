@@ -58,8 +58,8 @@ public with sharing class JSON2APEX {
 	}
 
 	
-	public static JSON2Apex parse(String json) {
-		return (JSON2Apex) System.JSON.deserialize(json, JSON2Apex.class);
+	public static JSON2APEX parse(String json) {
+		return (JSON2APEX) System.JSON.deserialize(json, JSON2APEX.class);
 	}
 }
 }
